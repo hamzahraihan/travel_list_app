@@ -80,7 +80,9 @@ class DetailScreen extends StatelessWidget {
                       onTap: () async {
                         await showDialog(
                             context: context,
-                            builder: (_) => const ImageDialog());
+                            builder: (_) => const ImageDialog(
+                                image:
+                                    'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'));
                       },
                       child: Padding(
                         padding: const EdgeInsets.all(4.0),
@@ -91,18 +93,36 @@ class DetailScreen extends StatelessWidget {
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Image.network(
-                          'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                            context: context,
+                            builder: (_) => const ImageDialog(
+                                image:
+                                    'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Image.network(
+                            'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
+                      ),
                     ),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
-                    child: Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Image.network(
-                          'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
+                    child: GestureDetector(
+                      onTap: () async {
+                        await showDialog(
+                            context: context,
+                            builder: (_) => const ImageDialog(
+                                image:
+                                    'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Image.network(
+                            'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
+                      ),
                     ),
                   ),
                 ],
@@ -114,13 +134,14 @@ class DetailScreen extends StatelessWidget {
 }
 
 class ImageDialog extends StatelessWidget {
-  const ImageDialog({super.key});
+  final String? image;
+
+  const ImageDialog({super.key, required this.image});
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      content: Image.network(
-          'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
+      content: Image.network(image!),
     );
   }
 }
