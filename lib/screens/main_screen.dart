@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:travel_list_app/screens/detail_screen.dart';
 import 'package:travel_list_app/widgets/base_appbar_widget.dart';
+import 'package:travel_list_app/model/tourism_place.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -8,61 +9,65 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: BaseAppBar(
-        title: const Text('Wisata Bandung'),
-        appBar: AppBar(),
-      ),
-      body: InkWell(
-        onTap: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return const DetailScreen();
-          }));
-        },
-        child: Card(
-          borderOnForeground: true,
-          shadowColor: Colors.black,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: Image.asset(
-                    'images/farm-house.jpg',
-                  ),
-                ),
-              ),
-              const Expanded(
-                flex: 3,
-                child: Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Column(
+        appBar: BaseAppBar(
+          title: const Text('Wisata Bandung'),
+          appBar: AppBar(),
+        ),
+        body: ListView.builder(
+            itemCount: tourismPlaceList.length,
+            itemBuilder: (BuildContext context, int index) {
+              final TourismPlace place = tourismPlaceList[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return DetailScreen(
+                      place: place,
+                    );
+                  }));
+                },
+                child: Card(
+                  color: Colors.white,
+                  shadowColor: Colors.black,
+                  clipBehavior: Clip.hardEdge,
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              'Farm House Bandung',
-                              style: TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(height: 10),
-                            Text(
-                              'Lembang',
-                              style: TextStyle(fontSize: 16),
-                            )
-                          ]),
+                      Expanded(
+                          flex: 1,
+                          child: Image.asset(place.imageAsset,
+                              height: 90, fit: BoxFit.cover)),
+                      Expanded(
+                        flex: 3,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      place.name,
+                                      style: const TextStyle(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    Text(
+                                      place.location,
+                                      style: const TextStyle(fontSize: 16),
+                                    )
+                                  ]),
+                            ],
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+              );
+            }));
   }
 }
