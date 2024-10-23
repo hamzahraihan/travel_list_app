@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:travel_list_app/model/tourism_place.dart';
+import 'package:travel_list_app/widgets/favorite_widget.dart';
 
 class DetailScreen extends StatelessWidget {
   final TourismPlace place;
@@ -10,7 +11,14 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: SingleChildScrollView(child: _mobileView(context)));
+    return Scaffold(body: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+      if (constraints.maxWidth <= 600) {
+        return SingleChildScrollView(child: _mobileView(context));
+      } else {
+        return SingleChildScrollView(child: WebView(place: place));
+      }
+    }));
   }
 
   Widget _mobileView(BuildContext context) {
@@ -116,209 +124,6 @@ class DetailScreen extends StatelessWidget {
       ],
     );
   }
-
-  // Widget _webView(BuildContext context) {
-  //   return Column(
-  //     crossAxisAlignment: CrossAxisAlignment.stretch,
-  //     children: <Widget>[
-  //       Image.asset(
-  //         'images/farm-house.jpg',
-  //         width: double.infinity,
-  //       ),
-  //       Container(
-  //           margin: const EdgeInsets.only(top: 10.0),
-  //           child: Text(
-  //             'Farm house Bandung',
-  //             textAlign: TextAlign.center,
-  //             style: GoogleFonts.staatliches(
-  //                 textStyle: const TextStyle(
-  //                     fontSize: 30, fontWeight: FontWeight.bold)),
-  //           )),
-  //       Container(
-  //         margin: const EdgeInsets.only(top: 16.0),
-  //         child: const Row(
-  //           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-  //           children: [
-  //             Column(
-  //               children: [
-  //                 Icon(Icons.calendar_month),
-  //                 SizedBox(height: 5),
-  //                 Text('Open Everyday')
-  //               ],
-  //             ),
-  //             Column(
-  //               children: [
-  //                 Icon(Icons.access_time),
-  //                 SizedBox(height: 5),
-  //                 Text('09:00 - 20:00')
-  //               ],
-  //             ),
-  //             Column(
-  //               children: [
-  //                 Icon(Icons.monetization_on),
-  //                 SizedBox(height: 5),
-  //                 Text('Rp 25.000')
-  //               ],
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //       Container(
-  //         margin: const EdgeInsets.symmetric(vertical: 16.0),
-  //         child: Center(
-  //           child: Text(
-  //             'Berada di jalur utama Bandung-Lembang, Farm House menjadi objek wisata yang tidak pernah sepi pengunjung. Selain karena letaknya strategis, kawasan ini juga menghadirkan nuansa wisata khas Eropa. Semua itu diterapkan dalam bentuk spot swafoto Instagramable.',
-  //             textAlign: TextAlign.center,
-  //             style: informationStyleText,
-  //           ),
-  //         ),
-  //       ),
-  //       SizedBox(
-  //           height: 150,
-  //           child: ListView(
-  //             scrollDirection: Axis.horizontal,
-  //             children: [
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-s/0d/7c/59/70/farmhouse-lembang.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-w/13/f0/22/f6/photo3jpg.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //               ClipRRect(
-  //                 borderRadius: BorderRadius.circular(20.0),
-  //                 child: GestureDetector(
-  //                   onTap: () async {
-  //                     await showDialog(
-  //                         context: context,
-  //                         builder: (_) => const ImageDialog(
-  //                             image:
-  //                                 'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'));
-  //                   },
-  //                   child: Padding(
-  //                     padding: const EdgeInsets.all(4.0),
-  //                     child: Image.network(
-  //                         'https://media-cdn.tripadvisor.com/media/photo-m/1280/16/a9/33/43/liburan-di-farmhouse.jpg'),
-  //                   ),
-  //                 ),
-  //               ),
-  //             ],
-  //           )),
-  //     ],
-  //   );
-  // }
 }
 
 class ImageDialog extends StatelessWidget {
@@ -334,28 +139,148 @@ class ImageDialog extends StatelessWidget {
   }
 }
 
-class FavoriteButtton extends StatefulWidget {
-  const FavoriteButtton({super.key});
+class WebView extends StatefulWidget {
+  final TourismPlace place;
+
+  const WebView({super.key, required this.place});
 
   @override
-  State<StatefulWidget> createState() => _FavoriteButtonState();
+  State<WebView> createState() => _WebViewState();
 }
 
-class _FavoriteButtonState extends State<FavoriteButtton> {
-  bool isFavorite = false;
+class _WebViewState extends State<WebView> {
+  final _scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
-    return IconButton(
-        onPressed: () {
-          setState(() {
-            {
-              isFavorite = !isFavorite;
-            }
-          });
-        },
-        icon: Icon(
-          isFavorite ? Icons.favorite : Icons.favorite_outline,
-          color: Colors.red,
-        ));
+    return Padding(
+        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 64),
+        child: Center(
+            child: SizedBox(
+          width: 1200,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Wisata Bandung',
+                style: GoogleFonts.staatliches(fontSize: 32),
+                textAlign: TextAlign.start,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    child: Column(
+                      children: [
+                        ClipRRect(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(16)),
+                          child: Image.asset(
+                            widget.place.imageAsset,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Scrollbar(
+                            controller: _scrollController,
+                            child: SizedBox(
+                              height: 100,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                controller: _scrollController,
+                                children: widget.place.imageUrls.map((url) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: ClipRRect(
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(8)),
+                                      child: Image.network(
+                                        url,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ))
+                      ],
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 20,
+                  ),
+                  Expanded(
+                      child: Column(
+                    children: [
+                      Card(
+                        color: Colors.white,
+                        clipBehavior: Clip.hardEdge,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Text(widget.place.name,
+                                  style: GoogleFonts.staatliches(fontSize: 20)),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.calendar_month),
+                                            const SizedBox(width: 5),
+                                            Text(widget.place.openDays)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.access_time),
+                                            const SizedBox(width: 5),
+                                            Text(widget.place.openTime)
+                                          ],
+                                        ),
+                                        const SizedBox(height: 5),
+                                        Row(
+                                          children: [
+                                            const Icon(Icons.monetization_on),
+                                            const SizedBox(width: 5),
+                                            Text(widget.place.ticketPrice)
+                                          ],
+                                        ),
+                                        const SizedBox(
+                                          height: 10,
+                                        )
+                                      ]),
+                                  const FavoriteButtton()
+                                ],
+                              ),
+                              Text(widget.place.description)
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  )),
+                ],
+              )
+            ],
+          ),
+        )));
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
   }
 }
