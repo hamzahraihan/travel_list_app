@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:travel_list_app/screens/detail_screen.dart';
 import 'package:travel_list_app/widgets/base_appbar_widget.dart';
-import 'package:travel_list_app/model/tourism_place.dart';
+import 'package:travel_list_app/widgets/tourism_place_grid_widget.dart';
+import 'package:travel_list_app/widgets/tourism_place_list_widget.dart';
 
 class MainScreen extends StatelessWidget {
   const MainScreen({super.key});
@@ -13,61 +13,19 @@ class MainScreen extends StatelessWidget {
           title: const Text('Wisata Bandung'),
           appBar: AppBar(),
         ),
-        body: ListView.builder(
-            itemCount: tourismPlaceList.length,
-            itemBuilder: (BuildContext context, int index) {
-              final TourismPlace place = tourismPlaceList[index];
-              return InkWell(
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return DetailScreen(
-                      place: place,
-                    );
-                  }));
-                },
-                child: Card(
-                  color: Colors.white,
-                  shadowColor: Colors.black,
-                  clipBehavior: Clip.hardEdge,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Expanded(
-                          flex: 1,
-                          child: Image.asset(place.imageAsset,
-                              height: 90, fit: BoxFit.cover)),
-                      Expanded(
-                        flex: 3,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      place.name,
-                                      style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                    const SizedBox(height: 10),
-                                    Text(
-                                      place.location,
-                                      style: const TextStyle(fontSize: 16),
-                                    )
-                                  ]),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }));
+        body: LayoutBuilder(
+            builder: (BuildContext context, BoxConstraints constrains) {
+          if (constrains.maxWidth <= 600) {
+            return const TourismPlaceList();
+          } else if (constrains.maxWidth <= 900) {
+            return const TourismPlaceGrid(
+              gridCount: 4,
+            );
+          } else {
+            return const TourismPlaceGrid(
+              gridCount: 6,
+            );
+          }
+        }));
   }
 }
